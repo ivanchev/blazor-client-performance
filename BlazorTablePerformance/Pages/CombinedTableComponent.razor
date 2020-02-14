@@ -1,0 +1,25 @@
+﻿@page "/combined-table-component"
+@inject HttpClient Http
+
+<h1>20 x 200 Grid</h1>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <BlazorTablePerformance.CustomTableAll.TableComponent Data="@forecasts" Columns="@Columns"></BlazorTablePerformance.CustomTableAll.TableComponent>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+    public List<string> Columns { get; set; } = new List<string>
+{ "Date", "TemperatureC", "TemperatureF", "Summary", "Date", "TemperatureC", "TemperatureF", "Summary", "Date", "TemperatureC",
+      "Date", "TemperatureC", "TemperatureF", "Summary", "Date", "TemperatureC", "TemperatureF", "Summary", "Date", "TemperatureC" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+    }
+}

@@ -1,0 +1,45 @@
+﻿@page "/telerik-grid"
+@inject HttpClient Http
+
+<h1>20 x 200 Grid</h1>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <TelerikGrid Data="@forecasts" SelectionMode="GridSelectionMode.Single">
+        <GridColumns>
+            <GridColumn Field="Date"></GridColumn>
+            <GridColumn Field="TemperatureC"></GridColumn>
+            <GridColumn Field="TemperatureF"></GridColumn>
+            <GridColumn Field="Summary"></GridColumn>
+            <GridColumn Field="Date"></GridColumn>
+            <GridColumn Field="TemperatureC"></GridColumn>
+            <GridColumn Field="TemperatureF"></GridColumn>
+            <GridColumn Field="Summary"></GridColumn>
+            <GridColumn Field="Date"></GridColumn>
+            <GridColumn Field="TemperatureC"></GridColumn>
+            <GridColumn Field="Date"></GridColumn>
+            <GridColumn Field="TemperatureC"></GridColumn>
+            <GridColumn Field="TemperatureF"></GridColumn>
+            <GridColumn Field="Summary"></GridColumn>
+            <GridColumn Field="Date"></GridColumn>
+            <GridColumn Field="TemperatureC"></GridColumn>
+            <GridColumn Field="TemperatureF"></GridColumn>
+            <GridColumn Field="Summary"></GridColumn>
+            <GridColumn Field="Date"></GridColumn>
+            <GridColumn Field="TemperatureC"></GridColumn>
+        </GridColumns>
+    </TelerikGrid>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+    }
+}

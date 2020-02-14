@@ -1,0 +1,32 @@
+﻿
+<table class="table">
+    <thead>
+        <tr>
+            @foreach (var item in Columns)
+            {
+                <th>@item</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        <RowCollection Data="@Data"
+                        Columns="@Columns"
+                        OnClick="@RefreshComponent"></RowCollection>
+    </tbody>
+</table>
+
+
+@code {
+    [Parameter]
+    public WeatherForecast[] Data { get; set; }
+
+    [Parameter]
+    public List<string> Columns { get; set; }
+
+    Task RefreshComponent(int index)
+    {
+        StateHasChanged();
+
+        return Task.CompletedTask;
+    }
+}
