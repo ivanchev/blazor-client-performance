@@ -9,7 +9,7 @@
 }
 else
 {
-    <TelerikGrid Data="@forecasts" SelectionMode="GridSelectionMode.Single">
+    <TelerikGrid Data="@forecasts" SelectionMode="GridSelectionMode.Single" TItem="WeatherForecast" SelectedItemsChanged="HandleOnSelected">
         <GridColumns>
             <GridColumn Field="Date"></GridColumn>
             <GridColumn Field="TemperatureC"></GridColumn>
@@ -41,5 +41,22 @@ else
     protected override async Task OnInitializedAsync()
     {
         forecasts = await Http.GetJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+    }
+
+    void HandleOnSelected()
+    {
+        t1 = DateTime.Now;
+    }
+
+    DateTime t1;
+    DateTime t2;
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            t2 = DateTime.Now;
+            Console.WriteLine("Refresh Time " + (t2 - t1).TotalMilliseconds);
+        }
+        return base.OnAfterRenderAsync(firstRender);
     }
 }
