@@ -14,7 +14,7 @@ namespace BlazorTablePerformance
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddTelerikBlazor();
+            //builder.Services.AddTelerikBlazor();
 
             await builder.Build().RunAsync();
         }
