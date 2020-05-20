@@ -9,7 +9,7 @@
 }
 else
 {
-    @*<TelerikGrid Data="@forecasts" SelectionMode="GridSelectionMode.Single" TItem="WeatherForecast" SelectedItemsChanged="HandleOnSelected">
+    <TelerikGrid Data="@forecasts" SelectionMode="GridSelectionMode.Single" TItem="WeatherForecast" SelectedItemsChanged="HandleOnSelected">
         <GridColumns>
             <GridColumn Field="Date"></GridColumn>
             <GridColumn Field="TemperatureC"></GridColumn>
@@ -32,7 +32,7 @@ else
             <GridColumn Field="Date"></GridColumn>
             <GridColumn Field="TemperatureC"></GridColumn>
         </GridColumns>
-    </TelerikGrid>*@
+    </TelerikGrid>
 }
 
 @code {
