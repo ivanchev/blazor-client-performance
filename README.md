@@ -14,27 +14,37 @@ These are some times we recorded with our tests:
 ### plain-table-component
 Components use only basic HTML/Razor and no additional framework features.
 ```
-WASM: Refresh Time 600
+WASM: Refresh Time 800
 ```
 ### cascadingvalue-table-component
 Components use CascadingValue for parent > child support.
 ```
-WASM: Refresh Time 1390
+WASM: Refresh Time 1800
 ```
 ### parameters-table-component
 Components use basic [parameter] attributes to share values.
 ```
-WASM: Refresh Time 964
+WASM: Refresh Time 1300
 ```
 ### attributes-table-component
 Components use splat attributes to share values.
 ```
-WASM: Refresh Time 908
+WASM: Refresh Time 1400
 ```
 ### combined-table-component
 Components use splat attributes and CascadingValues to share values. This combination seems to compound the latency problem.
 ```
-WASM: Refresh Time 3219
+WASM: Refresh Time 4100
+```
+### mono-table-component
+Component is rendered through a single razor file.
+```
+WASM: Refresh Time 340
+```
+### mono-table-events-component
+Component is rendered through a single razor file. Each cell has several event handlers attached.
+```
+WASM: Refresh Time 1200
 ```
 ### telerik-grid 2.7.x (optimized *not available to public / not included in demo*)
 Note: Time below is not reproduceable in this demo.
