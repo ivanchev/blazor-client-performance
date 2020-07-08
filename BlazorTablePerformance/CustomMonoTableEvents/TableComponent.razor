@@ -1,0 +1,84 @@
+﻿
+<table class="table">
+    <thead>
+        <tr>
+            @foreach (var item in Columns)
+            {
+                <th>@item</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Data)
+        {
+            var Item = item;
+            var rowStyle = Item.Equals(SelectedItem) ? "background-color: lightblue;" : "";
+
+            <tr style="@rowStyle">
+                @for (int i = 0; i < Columns.Count; i++)
+                {
+                    var column = Columns[i];
+
+                    <td @onclick="@(() => { SelectedItem = Item; RefreshComponent(); })"
+                        @ondblclick="@(() => EmptyHandler(i, Item))"
+                        @onkeydown="@(() => EmptyHandler(i, Item))"
+                        @onkeyup="@(() => EmptyHandler(i, Item))"
+                        @onkeypress="@(() => EmptyHandler(i, Item))"
+                        @onfocus="@(() => EmptyHandler(i, Item))">
+                        @switch (column)
+                        {
+                            case "Date":
+                                @Item.Date.ToShortDateString()
+                                break;
+                            case "TemperatureC":
+                                @Item.TemperatureC
+                                break;
+                            case "TemperatureF":
+                                @Item.TemperatureF
+                                break;
+                            case "Summary":
+                                @Item.Summary
+                                break;
+                        }
+                    </td>
+                }
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+
+@code {
+    [Parameter]
+    public WeatherForecast[] Data { get; set; }
+
+    [Parameter]
+    public List<string> Columns { get; set; }
+
+    public WeatherForecast SelectedItem { get; set; }
+
+    DateTime t1;
+    DateTime t2;
+    Task RefreshComponent()
+    {
+        t1 = DateTime.Now;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            t2 = DateTime.Now;
+            Console.WriteLine("Refresh Time " + (t2 - t1).TotalMilliseconds);
+        }
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    void EmptyHandler(int i, WeatherForecast item)
+    {
+        // try to use the index to get the column and the item 
+        // to do cell-specific logic, without resorting to individual cell components
+    }
+}
